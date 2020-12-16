@@ -19,43 +19,6 @@ declare global {
   }
 }
 
-contextMenu({
-  prepend: (defaultActions, params, browserWindow) => [
-    {
-      label: 'Open Document',
-      // Only shows it when right-clicking images, pdf, doc, epub
-      visible: params.mediaType === 'image' || 
-               params.mediaType === 'pdf' || 
-               params.mediaType === 'doc' || 
-               params.mediaType === 'docx' || 
-               params.mediaType === 'epub' || 
-               params.mediaType === 'mp3' ||
-               params.mediaType === 'mp4'
-      click: () => {
-        //mainWindow2.loadURL(path.join('file://', process.cwd(), 'src/index-2.html'));
-        //mainWindow2.show();
-      }
-    },
-    {
-      label: 'Insert Document into InfoBasket',
-      // Only shows it when right-clicking images, pdf, doc, epub
-      visible: params.mediaType === 'image' || params.mediaType === 'pdf' || params.mediaType === 'doc' || params.mediaType === 'docx' || params.mediaType === 'epub'
-    },
-    {
-      label: 'Remove Document from the InfoBasket',
-     // Only shows it when right-clicking images, pdf, doc, epub
-      visible: params.mediaType === 'image' || params.mediaType === 'pdf' || params.mediaType === 'doc' || params.mediaType === 'docx' || params.mediaType === 'epub'
-    },
-    {
-      label: 'Extract Information and Knowledge',
-     // Only shows it when right-clicking images, pdf, doc, epub
-      visible: params.mediaType === 'image' || params.mediaType === 'pdf' || params.mediaType === 'doc' || params.mediaType === 'docx' || params.mediaType === 'epub'
-    }
-  ]
-});
-
-const dispose = contextMenu();
-
 let mainWindow;
 let mainWindow2;
 
@@ -75,8 +38,6 @@ const createWindow = (): void => {
   // and load the index.html of the app.
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
-  dispose();
-
   // Show window when its ready to
   mainWindow.on('ready-to-show', () => mainWindow.show());
 
@@ -91,6 +52,10 @@ const createWindow = (): void => {
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
     },
   });
+
+  mainWindow2.webContents.openDevTools();
+
+  mainWindow2.loadURL(path.join('file://', process.cwd(), 'src/index-2.html'));  
 };
 
 app.on('ready', createWindow);
