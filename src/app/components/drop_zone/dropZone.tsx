@@ -3,8 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { hot } from 'react-hot-loader';
 import { useDropzone } from 'react-dropzone';
 
-//import ContextMenu from './documentContextMenu';
-
 declare global {
   interface Window {
     api: any,
