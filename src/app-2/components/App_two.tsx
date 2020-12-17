@@ -15,6 +15,7 @@ class App_two extends React.Component {
       <div className='container'>
         <h2>Welcome in the second window</h2>
         <div className='container'>
+          <img src="fileReceived" />
         </div>
       </div>
     );
